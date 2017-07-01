@@ -1,9 +1,16 @@
 <template>
     <div id="app">
-        <genre-filter></genre-filter>
-        <rating-filter></rating-filter>
-        <star-filter></star-filter>
-        <year-filter></year-filter>
+        <div class="filter">
+            <genre-filter></genre-filter>
+        </div>
+
+        <div class="filter">
+            <rating-filter></rating-filter>
+        </div>
+
+        <div class="filter">
+            <year-filter></year-filter>
+        </div>
 
         <search></search>
     </div>
@@ -13,7 +20,6 @@
     // Filters.
     import GenreFilter from './components/filters/GenreFilter.vue';
     import RatingFilter from './components/filters/RatingFilter.vue';
-    import StarFilter from './components/filters/StarFilter.vue';
     import YearFilter from './components/filters/YearFilter.vue';
 
     // SearchFilter.
@@ -23,9 +29,16 @@
         components: {
             GenreFilter,
             RatingFilter,
-            StarFilter,
             YearFilter,
             Search
         }
     }
 </script>
+
+<style>
+    .filter {
+        padding: 15px;
+        border: 1px solid grey;
+        margin-bottom: 20px;
+    }
+</style>
