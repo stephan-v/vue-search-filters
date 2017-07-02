@@ -1,9 +1,9 @@
 <template>
     <div class="rating">
-        <div class="checkbox" v-for="(index, value) in range">
+        <div class="checkbox" v-for="(value, index) in range">
             <label>
-                <input type="checkbox" :value="value">
-                {{ value}} {{ index }}
+                <input type="checkbox" :value="index" v-model.number="ratings">
+                {{ index }} {{ value}}
             </label>
         </div><!-- /.checkbox -->
     </div><!-- /.rating -->
@@ -20,7 +20,8 @@
                     3: 'sterren',
                     4: 'sterren',
                     5: 'sterren'
-                }
+                },
+                ratings: []
             };
         }
     };

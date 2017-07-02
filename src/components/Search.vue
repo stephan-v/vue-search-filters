@@ -21,6 +21,11 @@
             return {
                 movies
             };
+        },
+
+        created() {
+            // Fake an ajax request.
+            this.$store.commit('data', this.movies);
         }
     };
 </script>

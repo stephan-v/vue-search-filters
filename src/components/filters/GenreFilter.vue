@@ -1,8 +1,8 @@
 <template>
     <div class="genre">
-        <div class="checkbox" v-for="(index, value) in genre">
+        <div class="checkbox" v-for="(index, value) in range">
             <label>
-                <input type="checkbox" :value="value">
+                <input type="checkbox" :value="index" v-model="genres">
                 {{ index }}
             </label>
         </div><!-- /.checkbox -->
@@ -13,7 +13,7 @@
     export default {
         data() {
             return {
-                genre: [
+                range: [
                     'Action',
                     'Adventure',
                     'Comedy',
@@ -25,8 +25,15 @@
                     'Horror',
                     'Sci-Fi',
                     'Thriller'
-                ]
+                ],
+                genres: []
             };
+        },
+
+        watch: {
+            genres(value) {
+                this.$store.commit
+            }
         }
     };
 </script>
