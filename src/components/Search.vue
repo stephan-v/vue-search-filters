@@ -14,18 +14,18 @@
 
 <script>
     // Test dataset.
-    import movies from '../../data/movies';
+    import data from '../../data/movies';
 
     export default {
-        data() {
-            return {
-                movies
-            };
-        },
-
         created() {
             // Fake an ajax request.
-            this.$store.commit('data', this.movies);
+            this.$store.commit('data', data);
+        },
+
+        computed: {
+            movies() {
+                return this.$store.getters.data;
+            }
         }
     };
 </script>

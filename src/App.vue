@@ -1,18 +1,22 @@
 <template>
     <div id="app">
-        <div class="filter">
-            <genre-filter></genre-filter>
-        </div>
+        <div class="sidebar">
+            <div class="filter">
+                <genre-filter></genre-filter>
+            </div><!-- /.filter -->
 
-        <div class="filter">
-            <rating-filter></rating-filter>
-        </div>
+            <div class="filter">
+                <rating-filter></rating-filter>
+            </div><!-- /.filter -->
 
-        <div class="filter">
-            <year-filter></year-filter>
-        </div>
+            <div class="filter">
+                <year-filter></year-filter>
+            </div><!-- /.filter -->
+        </div><!-- /.sidebar -->
 
-        <search></search>
+        <div class="content">
+            <search></search>
+        </div>
     </div>
 </template>
 
@@ -36,6 +40,19 @@
 </script>
 
 <style>
+    #app {
+        width: 1100px;
+        margin: 0 auto;
+    }
+    .sidebar {
+        float: left;
+        width: 20%;
+    }
+    .content {
+        float: left;
+        width: 75%;
+        margin-left: 5%;
+    }
     .filter {
         padding: 15px;
         border: 1px solid grey;
