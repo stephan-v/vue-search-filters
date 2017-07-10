@@ -9,6 +9,8 @@
                 <span class="value">{{ value }}</span>
                 <span class="background"></span>
 
+                <span class="count">{{ count(index) }}</span>
+
                 <span class="remove-filter">x</span>
             </label>
         </div><!-- /.checkbox -->
