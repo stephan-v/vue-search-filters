@@ -82,7 +82,7 @@
                     const filter = filters[i][1];
                     // Break the v-model reference by creating a shallow copy.
                     const values = filter.values.slice(0);
-                    // Merge any selected checkbox besides the one we are currently iterating.
+                    // Merge any selected checkbox values with the one we are currently iterating.
                     if (!values.includes(value)) values.push(value);
                     // Check if the current filter has selected checkboxes and filter if it does.
                     data = filter.function(data, values);
