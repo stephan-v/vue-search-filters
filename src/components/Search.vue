@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="movie" v-for="movie in movies">
-            <div>Title: {{ movie.title }}</div>
-            <div>Year: {{ movie.year }}</div>
-            <div>Rating: {{ movie.rating }}</div>
+            <span>Title: {{ movie.title }}</span>
+            <span>Year: {{ movie.year }}</span>
+            <span>Rating: {{ movie.rating }}</span>
 
             <ul>
                 <li v-for="genre in movie.genre">{{ genre }}</li>
