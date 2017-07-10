@@ -59,13 +59,14 @@ export default {
     getters: {
         data: state => {
             if (hasActiveFilter(state)) {
-                console.log('Filtered data');
                 return state.filteredData;
             } else {
                 // Reset our filters if none are selected.
                 state.filteredData = state.initialData;
                 return state.initialData;
             }
-        }
+        },
+
+        filterStack: state => state.filterStack
     }
 }

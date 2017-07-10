@@ -9,6 +9,8 @@
                 <span class="value">{{ value }}</span>
                 <span class="background"></span>
 
+                <span class="count">{{ count(index) }}</span>
+
                 <span class="remove-filter">x</span>
             </label>
         </div><!-- /.checkbox -->
@@ -59,6 +61,34 @@
                     name: this.name,
                     values
                 });
+            }
+        },
+
+        computed: {
+            ...mapGetters([
+                'data',
+                'filterStack'
+            ])
+        },
+
+        methods: {
+            count(value) {
+                // Get the initial unfiltered AJAX data.
+                let data = this.data;
+
+                const filters = Object.entries(this.filterStack);
+
+                for (let i = 0; i < filters.length; i += 1) {
+                    const filter = filters[i][1];
+                    // Break the v-model reference by creating a shallow copy.
+                    const values = filter.values.slice(0);
+                    // Merge any selected checkbox besides the one we are currently iterating.
+                    if (!values.includes(value)) values.push(value);
+                    // Check if the current filter has selected checkboxes and filter if it does.
+                    data = filter.function(data, values);
+                }
+
+                return data.length;
             }
         }
     };
