@@ -20,6 +20,12 @@ module.exports = {
         }
       },
       {
+          test: /\.(vue|js)$/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          exclude: /node_modules/
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/

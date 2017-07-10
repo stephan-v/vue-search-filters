@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
 
 // Vuex store.
 import store from './store';
@@ -7,6 +7,7 @@ import store from './store';
 // Components.
 import components from './components/components';
 
+/* eslint-disable no-new */
 new Vue({
     el: '#app',
 

@@ -3,6 +3,8 @@ import Vue from 'vue';
 function hasActiveFilter(state) {
     let returnv = false;
 
+    Object.keys(state.filterStack);
+
     Object.entries(state.filterStack).forEach((entry) => {
         const filter = entry[1];
         // Check if the current filter has selected checkboxes and return true if it does.
@@ -57,16 +59,16 @@ export default {
     },
 
     getters: {
-        data: state => {
+        data: (state) => {
             if (hasActiveFilter(state)) {
                 return state.filteredData;
-            } else {
-                // Reset our filters if none are selected.
-                state.filteredData = state.initialData;
-                return state.initialData;
             }
+
+            // Reset our filters if none are selected.
+            state.filteredData = state.initialData;
+            return state.initialData;
         },
 
         filterStack: state => state.filterStack
     }
-}
+};
