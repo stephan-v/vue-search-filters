@@ -3,8 +3,7 @@ import Vue from 'vue';
 function hasActiveFilter(state) {
     let returnv = false;
 
-    Object.keys(state.filterStack);
-
+    // @TODO Refactor to remove .entries / .forEach / .includes
     Object.entries(state.filterStack).forEach((entry) => {
         const filter = entry[1];
         // Check if the current filter has selected checkboxes and return true if it does.

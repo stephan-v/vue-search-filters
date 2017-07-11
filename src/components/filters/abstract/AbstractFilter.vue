@@ -9,7 +9,7 @@
                 <span class="value">{{ value }}</span>
                 <span class="background"></span>
 
-                <span class="count">{{ count(index) }}</span>
+                <span class="count">- {{ count(index) }}</span>
 
                 <span class="remove-filter">x</span>
             </label>
@@ -61,6 +61,40 @@
                     name: this.name,
                     values
                 });
+            }
+        },
+
+        methods: {
+            count(value) {
+                // Get the initial unfiltered search data.
+                let data = this.data;
+
+                const filters = Object.keys(this.filterStack);
+
+                for (let i = 0; i < filters.length; i += 1) {
+                    const filterName = filters[i];
+
+                    const filter = this.filterStack[filterName];
+                    // Break the v-model reference by creating a shallow copy.
+                    const values = filter.values.slice(0);
+
+                    // Merge any selected checkbox values with the one we are currently iterating.
+                    if (this.name === filterName && !values.indexOf(value) > -1) {
+                        values.push(this.typeCast(value));
+
+                        data = filter.function(data, values);
+                    }
+                }
+
+                return data.length;
+            },
+
+            isNumeric(num) {
+                return !isNaN(num);
+            },
+
+            typeCast(value) {
+                return this.isNumeric(value) ? Number(value) : value;
             }
         },
 
