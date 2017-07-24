@@ -1,8 +1,62 @@
 <template>
     <div id="app">
         <div class="sidebar">
-            <genre-filter :range="{ Action: 'Action', Animation: 'Animation', Crime: 'Crime', Comedy: 'Comedy', Drama: 'Drama' }"></genre-filter>
-            <year-filter :range="{ 2008: 2008, 2009: 2009, 2010: 2010, 2011: 2011, 2012: 2012, 2013: 2013, 2014: 2014, 2015: 2015 }"></year-filter>
+            <genre-filter :range="[
+                {
+                    label: 'Action',
+                    value: 'Action'
+                },
+                {
+                    label: 'Animation',
+                    value: 'Animation'
+                },
+                {
+                    label: 'Crime',
+                    value: 'Crime'
+                },
+                {
+                    label: 'Comedy',
+                    value: 'Comedy'
+                },
+                {
+                    label: 'Drama',
+                    value: 'Drama'
+                }
+                ]"></genre-filter>
+            <year-filter :range="[
+                {
+                    label: 2008,
+                    value: 2008
+                },
+                {
+                    label: 2009,
+                    value: 2009
+                },
+                {
+                    label: 2010,
+                    value: 2010
+                },
+                {
+                    label: 2011,
+                    value: 2011
+                },
+                {
+                    label: 2012,
+                    value: 2012
+                },
+                {
+                    label: 2013,
+                    value: 2013
+                },
+                {
+                    label: 2014,
+                    value: 2014
+                },
+                {
+                    label: 2015,
+                    value: 2015
+                }
+                ]"></year-filter>
         </div><!-- /.sidebar -->
 
         <div class="content">

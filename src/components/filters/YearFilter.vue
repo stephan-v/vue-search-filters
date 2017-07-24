@@ -1,5 +1,4 @@
 <script>
-    import filter from 'lodash/filter';
     import FilterBase from './abstract/AbstractFilter.vue';
 
     export default {
@@ -14,7 +13,7 @@
         methods: {
             // Always accepts the data to filter and the v-model, which you can name yourself here.
             filter(data, years) {
-                return filter(data, item => years.indexOf(item.year) > -1);
+                return data.filter(item => years.indexOf(item.year) > -1);
             }
         }
     };

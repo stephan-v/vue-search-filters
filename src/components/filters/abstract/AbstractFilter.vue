@@ -1,15 +1,15 @@
 <template>
-    <div class="filter">
+    <div class="filter" :class="{ 'active': active }">
         <h4>{{ translation }}</h4>
 
-        <div class="checkbox" v-for="(value, index) in range" :key="index">
+        <div class="checkbox" v-for="(value, index) in rangeWithCount" :key="index">
             <label>
-                <input type="checkbox" :value="index" v-model.number="values">
+                <input type="checkbox" :value="value.label" v-model.number="values">
 
-                <span class="value">{{ value }}</span>
+                <span class="value">{{ value.value }}</span>
                 <span class="background"></span>
 
-                <span class="count">- {{ count(index) }}</span>
+                <span class="count">- {{ value.count }}</span>
 
                 <span class="remove-filter">x</span>
             </label>
@@ -24,7 +24,6 @@
         data() {
             return {
                 name: '',
-                values: [],
                 translation: ''
             };
         },
@@ -32,7 +31,7 @@
         props: {
             range: {
                 required: true,
-                type: Object
+                type: Array
             }
         },
 
@@ -55,46 +54,33 @@
             });
         },
 
-        watch: {
-            values(values) {
-                this.$store.commit('filter', {
-                    name: this.name,
-                    values
-                });
-            }
-        },
-
         methods: {
             count(value) {
-                // Get the initial unfiltered search data.
                 let data = this.data;
 
-                const filters = Object.keys(this.filterStack);
+                Object.keys(this.filterStack).forEach((name) => {
+                    const filter = this.filterStack[name];
 
-                for (let i = 0; i < filters.length; i += 1) {
-                    const filterName = filters[i];
-
-                    const filter = this.filterStack[filterName];
                     // Break the v-model reference by creating a shallow copy.
                     const values = filter.values.slice(0);
 
-                    // Merge any selected checkbox values with the one we are currently iterating.
-                    if (this.name === filterName && !values.indexOf(value) > -1) {
-                        values.push(this.typeCast(value));
-
-                        data = filter.function(data, values);
+                    // Only merge the value if our components name matches with the filter name.
+                    if (this.shouldMerge(name, value, values)) {
+                        values.push(value);
                     }
-                }
+
+                    // OR filter.
+                    if (this.name === name) data = filter.function(data, [value]);
+
+                    // AND filter.
+                    if (values.length) data = filter.function(data, values);
+                });
 
                 return data.length;
             },
 
-            isNumeric(num) {
-                return !isNaN(num);
-            },
-
-            typeCast(value) {
-                return this.isNumeric(value) ? Number(value) : value;
+            shouldMerge(name, value, values) {
+                return this.name === name && !(values.indexOf(value) >= 0);
             }
         },
 
@@ -102,7 +88,30 @@
             ...mapGetters([
                 'data',
                 'filterStack'
-            ])
+            ]),
+
+            active() {
+                return this.values.length;
+            },
+
+            values: {
+                get() {
+                    return this.filterStack[this.name].values;
+                },
+
+                set(values) {
+                    this.$store.commit('filter', {
+                        name: this.name,
+                        values
+                    });
+                }
+            },
+
+            rangeWithCount() {
+                return this.range.map(value => Object.assign({}, value, {
+                    count: this.count(value.value)
+                }));
+            }
         }
     };
 </script>
